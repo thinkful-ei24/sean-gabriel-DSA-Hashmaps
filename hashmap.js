@@ -60,10 +60,9 @@ class HashMap {
   get(key) {
     const index = this._findSlot(key);
     const foundKey = this._slots[index];
-    if(!foundKey) {
-      throw new Error('Key error');
+    if(foundKey) {
+      return foundKey.value;
     }
-    return foundKey.value;
   }
 
   remove(key) {
@@ -86,3 +85,5 @@ function main() {
 }
 
 main();
+
+module.exports = HashMap;
