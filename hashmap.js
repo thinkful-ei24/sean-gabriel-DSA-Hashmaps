@@ -21,10 +21,9 @@ class HashMap {
     const start = hash % this._capacity;
 
     for(let i=start; i<this._capacity; i++) {
-      const index = i % this._capacity;
-      const element = this._slots[index];
+      const element = this._slots[i];
       if(element === undefined || (element.key === key && !element.deleted)) {
-        return index;
+        return i;
       }
     }
   }
