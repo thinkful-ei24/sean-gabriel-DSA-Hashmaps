@@ -21,9 +21,10 @@ class HashMap {
     const start = hash % this._capacity;
 
     for(let i=start; i<this._capacity; i++) {
-      const element = this._slots[i];
-      if(element === undefined || (element === key && !element.deleted)) {
-        return i;
+      const index = i % this._capacity;
+      const element = this._slots[index];
+      if(element === undefined || (element.key === key && !element.deleted)) {
+        return index;
       }
     }
   }
@@ -59,9 +60,11 @@ class HashMap {
 
   get(key) {
     const index = this._findSlot(key);
-    console.log(index);
-    console.log(this._slots);
-    return this._slots[index-1];
+    const foundKey = this._slots[index];
+    if(!foundKey) {
+      throw new Error('Key error');
+    }
+    return foundKey.value;
   }
 
   remove(key) {
@@ -81,7 +84,6 @@ function main() {
   hashmap.set('b', 2);
   hashmap.set('c', 3);
   console.log(hashmap.get('b'));
-  // console.log(hashmap);
 }
 
 main();
